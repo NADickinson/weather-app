@@ -1,0 +1,16 @@
+* {
+  font-family: inherit;
+
+  margin: 0;
+
+  outline: 0;
+
+  padding: 0;
+
+  position: relative;
+}
+
+html {
+  font-family: 'Roboto Mono', monospace;
+  color: whitesmoke;
+}

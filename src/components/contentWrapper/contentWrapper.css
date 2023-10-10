@@ -1,0 +1,9 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40%;
+  min-width: 70%;
+  padding: 80px 20px 20px;
+}
