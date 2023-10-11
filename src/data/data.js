@@ -255,3 +255,22 @@ const MappedCountryCodes = countryCodes => {
 }
 
 export const mappedCountries = MappedCountryCodes(countryCodes)
+
+export const dynamicTextColor = weatherStatus => {
+  switch (weatherStatus) {
+    case 'Clouds':
+      return 'black'
+    case 'Rain':
+      return 'whitesmoke'
+    case 'Thunderstorm':
+      return 'whitesmoke'
+    case 'Drizzle':
+      return 'black'
+    case 'Clear':
+      return 'whitesmoke'
+    case 'Snow':
+      return 'black'
+    default:
+      return ''
+  }
+}

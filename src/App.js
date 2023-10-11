@@ -11,7 +11,7 @@ import { TempDiv } from './components/tempDiv/TempDiv'
 import { WeatherDiv } from './components/weatherDiv/WeatherDiv'
 import { WindSpeedDiv } from './components/windSpeedDiv/WindSpeedDiv'
 import { ErrorMessage } from './components/errorMessage/ErrorMessage'
-import { TitleContainer } from './components/title/Title'
+import { TitleContainer } from './components/title/TitleContainer'
 
 function App() {
   const [countryCode, setCountryCode] = useState('')
@@ -64,21 +64,49 @@ function App() {
             }
           }}
         />
-        <LocationDiv location={weatherData.name} />
-        {error ? <ErrorMessage opacity={1} /> : <ErrorMessage opacity={0} />}
+        <LocationDiv
+          color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+          location={weatherData.name}
+        />
+        {error ? (
+          <ErrorMessage color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''} opacity={1} />
+        ) : (
+          <ErrorMessage color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''} opacity={0} />
+        )}
       </ContentWrapper>
 
       <div
         style={{ display: 'flex', justifyContent: 'space-between', minWidth: '70%', minHeight: '20%', padding: '50px' }}
       >
-        <TitleContainer flexType={'column'} title={'Temperature'}>
-          <TempDiv temp={weatherData?.cod === 200 ? weatherData.main.temp : ''} />
+        <TitleContainer
+          color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+          flexType={'column'}
+          title={'Temperature'}
+        >
+          <TempDiv
+            color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+            temp={weatherData?.cod === 200 ? weatherData.main.temp : ''}
+          />
         </TitleContainer>
-        <TitleContainer flexType={'column'} title={'Weather'}>
-          <WeatherDiv weather={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''} />
+        <TitleContainer
+          color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+          flexType={'column'}
+          title={'Weather'}
+        >
+          <WeatherDiv
+            color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+            weather={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+          />
         </TitleContainer>
-        <TitleContainer flexType={'column'} title={'Wind Speed'}>
-          <WindSpeedDiv windSpeed={weatherData && weatherData.cod === 200 ? weatherData.wind.speed : ''} />
+        <TitleContainer
+          color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+          flexType={'column'}
+          title={'Wind Speed'}
+        >
+          <WindSpeedDiv
+            color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
+            windSpeed={weatherData && weatherData.cod === 200 ? weatherData.wind.speed : ''}
+          />
         </TitleContainer>
       </div>
     </PageWrapper>
