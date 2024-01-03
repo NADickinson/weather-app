@@ -27,6 +27,26 @@ function App() {
     }
   }, [error])
 
+  const getWeatherData = async () => {
+    const [lat, long] = await getlatAndLong({
+      countryCode,
+      zipCode,
+    })
+
+    if (lat === undefined || long === undefined) {
+      setError(true)
+      return
+    }
+
+    const result = await getWeather({ lat, long })
+    setWeatherData(result)
+
+    console.log(weatherData)
+    if (result.cod === '400') {
+      setError(true)
+    }
+  }
+
   return (
     <PageWrapper weatherStatus={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}>
       <ContentWrapper>
@@ -40,30 +60,14 @@ function App() {
           onChange={e => {
             setZipCode(e.target.value)
           }}
-        />
-        {/*  id of custom select+ on key press?  key code 13? enter   */}
-        <Button
-          onClick={async () => {
-            const [lat, long] = await getlatAndLong({
-              countryCode,
-              zipCode,
-            })
-            console.log(long, lat)
-
-            if (lat === undefined || long === undefined) {
-              setError(true)
-              return
-            }
-
-            const result = await getWeather({ lat, long })
-            setWeatherData(result)
-
-            console.log(weatherData)
-            if (result.cod === '400') {
-              setError(true)
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              getWeatherData()
             }
           }}
         />
+
+        <Button onClick={getWeatherData} />
         <LocationDiv
           color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
           location={weatherData.name}
@@ -76,7 +80,11 @@ function App() {
       </ContentWrapper>
 
       <div
-        style={{ display: 'flex', justifyContent: 'space-between', minWidth: '70%', minHeight: '20%', padding: '50px' }}
+        style={{
+          display: 'flex',
+          minHeight: '20%',
+          padding: '50px',
+        }}
       >
         <TitleContainer
           color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
@@ -105,7 +113,7 @@ function App() {
         >
           <WindSpeedDiv
             color={weatherData && weatherData.cod === 200 ? weatherData.weather[0].main : ''}
-            windSpeed={weatherData && weatherData.cod === 200 ? weatherData.wind.speed : ''}
+            windSpeed={weatherData && weatherData.cod === 200 ? weatherData.wind.speed + ' Meter/Second' : ''}
           />
         </TitleContainer>
       </div>

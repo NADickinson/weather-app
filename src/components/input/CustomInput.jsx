@@ -1,7 +1,5 @@
 import './customInput.css'
 
-export const CustomInput = ({ type, onChange }) => {
-  return <input className="customInput" type={type} onChange={onChange}></input>
+export const CustomInput = ({ type, onChange, onKeyDown }) => {
+  return <input className="customInput" type={type} onChange={onChange} onKeyDown={onKeyDown}></input>
 }
-
-//on change? value? dangerouslysetinnerhtml, passing it up? BABEL DEPENDENCIES!!!!
